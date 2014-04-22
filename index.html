@@ -1,0 +1,62 @@
+<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script src="script.js"></script>
+<script>
+$(function() {
+	carousel.init();
+});
+</script>
+<style type="text/css">
+	body {
+		margin: 0px;
+		padding: 0px;
+	}
+
+	.prev,.next {
+		position: absolute;
+		top: 40%;
+		z-index: 1;
+	}
+
+	.prev {
+    	left: 10px;
+	}
+
+	.next {
+		right: 10px;
+	}
+
+	.imageDiv {
+		height: 900px;
+		width: 1353px;
+		overflow: hidden;
+		position: absolute;
+	}
+
+	.inner {
+		overflow: hidden;
+		width: 1353px;
+		height: 900px;
+		position: relative;
+	}
+
+	.imageDiv {
+		display: none;
+	}
+
+	.imageDiv.active {
+		display: block;
+	}
+</style>
+
+<div class="main">
+	<a href="javascript:;" class="prev">Prev</a>
+	<div class="inner" style="">
+		<div class="imageDiv active"><img src="img/1.jpg" width="1353px" height="900px"></div>
+		<div class="imageDiv"><img src="img/2.jpg" width="1353px" height="900px"></div>
+		<div class="imageDiv"><img src="img/3.jpg" width="1353px" height="900px"></div>
+		<div class="imageDiv"><img src="img/4.jpg" width="1353px" height="900px"></div>
+		<div class="imageDiv"><img src="img/5.jpg" width="1353px" height="900px"></div>
+	</div>
+	<a href="javascript:;" class="next">Next</a>
+</div>
+

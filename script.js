@@ -7,6 +7,7 @@ carousel =  {
 	innerClass: '.imageDiv',
 	carouselWidth: 0,
 	animateSpeed: 500,
+	isComplete: true, // for prevent multiclick on same time
 
 	init: function() {
 		this.totalImg = $(this.mainClass).find(this.innerClass).length;
@@ -23,7 +24,8 @@ carousel =  {
 				_this.newImg = _this.totalImg - 1;
 			}
 
-			_this.slideCarousel('prev');
+			if (_this.isComplete)
+				_this.slideCarousel('prev');
 		});
 
 		$('.next').unbind('click').bind('click', function() {
@@ -33,9 +35,8 @@ carousel =  {
 				_this.newImg = 0;
 			}
 
-			console.log(_this.newImg, _this.totalImg);
-
-			_this.slideCarousel('next');
+			if (_this.isComplete)
+				_this.slideCarousel('next');
 		});
 	},
 
@@ -47,6 +48,7 @@ carousel =  {
 
 	slideCarousel: function(direction) {
 		var _this = this;
+		_this.isComplete = false;
 
 		if (direction == 'next') {
 			$(_this.mainClass).find(_this.innerClass).eq(_this.newImg).css({'left': _this.carouselWidth+'px'}).addClass('active');
@@ -61,6 +63,8 @@ carousel =  {
 				$(this).attr('style', "");
 				$(_this.mainClass).find(_this.innerClass).eq(_this.currentImg).removeClass('active');
 				_this.currentImg = _this.newImg;
+
+				_this.isComplete = true;
 			});
 		} else {
 			$(_this.mainClass).find(_this.innerClass).eq(_this.newImg).css({'left': -1*_this.carouselWidth+'px'}).addClass('active');
@@ -75,6 +79,8 @@ carousel =  {
 				$(_this.mainClass).find(_this.innerClass).eq(_this.currentImg).removeClass('active');
 				$(this).attr('style', "");
 				_this.currentImg = _this.newImg;
+
+				_this.isComplete = true;
 			});
 		}
 	}

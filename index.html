@@ -11,6 +11,24 @@ $(function() {
 		padding: 0px;
 	}
 
+	.arrowDiv {
+		height: 100%;
+		position: absolute;
+		width: 50%;
+		cursor: pointer;
+		text-indent: -9999px;
+		z-index: 1;
+	}
+
+	/*.arrowDiv:hover {
+		background: #fff;
+		opacity: 0.5;
+	}*/
+
+	.arrowDiv.right {
+		right: 0px;
+	}
+
 	.prev,.next {
 		position: absolute;
 		top: 40%;
@@ -18,24 +36,30 @@ $(function() {
 	}
 
 	.prev {
-    	left: 10px;
+    	background: url("img/prev.png") no-repeat;
+    	height: 64px;
+	    width: 64px;
+	    left: 10px;
 	}
 
 	.next {
+		background: url("img/next.png") no-repeat;
+    	height: 64px;
+	    width: 64px;
 		right: 10px;
 	}
 
 	.imageDiv {
-		height: 900px;
-		width: 1353px;
+		height: 100%;
+		width: 100%;
 		overflow: hidden;
 		position: absolute;
 	}
 
 	.inner {
 		overflow: hidden;
-		width: 1353px;
-		height: 900px;
+		width: 100%;
+		height: 100%;
 		position: relative;
 	}
 
@@ -49,14 +73,19 @@ $(function() {
 </style>
 
 <div class="main">
-	<a href="javascript:;" class="prev">Prev</a>
-	<div class="inner" style="">
-		<div class="imageDiv active"><img src="img/1.jpg" width="1353px" height="900px"></div>
-		<div class="imageDiv"><img src="img/2.jpg" width="1353px" height="900px"></div>
-		<div class="imageDiv"><img src="img/3.jpg" width="1353px" height="900px"></div>
-		<div class="imageDiv"><img src="img/4.jpg" width="1353px" height="900px"></div>
-		<div class="imageDiv"><img src="img/5.jpg" width="1353px" height="900px"></div>
+	<div class="arrowDiv left">
+		<a href="#" class="prev">Prev</a>
 	</div>
-	<a href="javascript:;" class="next">Next</a>
+	<div class="arrowDiv right">
+		<a href="#" class="next">Next</a>
+	</div>
+
+	<div class="inner" style="">
+		<div class="imageDiv active"><img src="img/carousel/1.jpg" width="100%" height="100%"></div>
+		<div class="imageDiv"><img src="img/carousel/2.jpg" width="100%" height="100%"></div>
+		<div class="imageDiv"><img src="img/carousel/3.jpg" width="100%" height="100%"></div>
+		<div class="imageDiv"><img src="img/carousel/4.jpg" width="100%" height="100%"></div>
+		<div class="imageDiv"><img src="img/carousel/5.jpg" width="100%" height="100%"></div>
+	</div>
 </div>
 

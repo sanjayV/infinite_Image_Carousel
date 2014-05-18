@@ -7,43 +7,59 @@ carousel =  {
 	innerClass: '.imageDiv',
 	carouselWidth: 0,
 	animateSpeed: 500,
+	autoSpeed: 3000,
 	isComplete: true, // for prevent multiclick on same time
+	currentInterval: "",
 
 	init: function() {
 		this.totalImg = $(this.mainClass).find(this.innerClass).length;
 		this.getCarouselPosition();
 		this.bindEvents();
+		this.autoSlide();
 	},
 
 	bindEvents: function() {
 		var _this = this;
-		$('.prev').unbind('click').bind('click', function() {
-			_this.newImg = _this.currentImg - 1;;
+
+		$( window ).resize(function() {
+			_this.carouselWidth = $(_this.mainClass).find(_this.innerClass).width();
+		});
+
+		$('.arrowDiv.left').unbind('click').bind('click', function(e) {
+			e.preventDefault();
+			/*_this.newImg = _this.currentImg - 1;;
 
 			if (_this.newImg < 0) {
 				_this.newImg = _this.totalImg - 1;
-			}
+			}*/
 
 			if (_this.isComplete)
 				_this.slideCarousel('prev');
 		});
 
-		$('.next').unbind('click').bind('click', function() {
-			_this.newImg = _this.currentImg + 1;
+		$('.arrowDiv.right').unbind('click').bind('click', function(e) {
+			e.preventDefault();
+			/*_this.newImg = _this.currentImg + 1;
 
 			if (_this.newImg > _this.totalImg - 1) {
 				_this.newImg = 0;
-			}
+			}*/
 
 			if (_this.isComplete)
 				_this.slideCarousel('next');
 		});
+
+		$('.arrowDiv a').hover(function()  {
+			if (_this.currentInterval != "")
+				clearInterval(_this.currentInterval);
+		}, function() {
+			_this.autoSlide();
+		})
 	},
 
 	getCarouselPosition: function() {
 		var _this = this;
 		_this.carouselWidth = $(_this.mainClass).find(_this.innerClass).width();
-		console.log(_this.carouselWidth)
 	},
 
 	slideCarousel: function(direction) {
@@ -51,6 +67,12 @@ carousel =  {
 		_this.isComplete = false;
 
 		if (direction == 'next') {
+			_this.newImg = _this.currentImg + 1;
+
+			if (_this.newImg > _this.totalImg - 1) {
+				_this.newImg = 0;
+			}
+
 			$(_this.mainClass).find(_this.innerClass).eq(_this.newImg).css({'left': _this.carouselWidth+'px'}).addClass('active');
 
 			$(_this.mainClass).find(_this.innerClass).eq(_this.newImg).animate({
@@ -67,6 +89,12 @@ carousel =  {
 				_this.isComplete = true;
 			});
 		} else {
+			_this.newImg = _this.currentImg - 1;;
+
+			if (_this.newImg < 0) {
+				_this.newImg = _this.totalImg - 1;
+			}
+
 			$(_this.mainClass).find(_this.innerClass).eq(_this.newImg).css({'left': -1*_this.carouselWidth+'px'}).addClass('active');
 
 			$(_this.mainClass).find(_this.innerClass).eq(_this.newImg).animate({
@@ -83,5 +111,14 @@ carousel =  {
 				_this.isComplete = true;
 			});
 		}
+	},
+
+	autoSlide: function() {
+		var _this = this;
+
+		_this.currentInterval = setInterval(function() {
+			console.log(_this.currentImg)
+			_this.slideCarousel('next');
+		}, _this.autoSpeed);
 	}
 };

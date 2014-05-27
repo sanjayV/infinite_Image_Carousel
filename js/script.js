@@ -108,8 +108,7 @@
 					newImg = 0;
 				}
 
-				if (isComplete)
-					slideCarousel('next');
+				slideCarousel('next');
 			}, autoSpeed);
 		};
 

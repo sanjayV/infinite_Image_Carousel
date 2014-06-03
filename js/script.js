@@ -5,7 +5,8 @@
         var settings = $.extend({
             auto         : true,
             animateSpeed : 500,
-            autoSpeed    : 3000
+            autoSpeed    : 3000,
+            isPagination : true
         }, options);
 
 		var currentImg = 0
@@ -17,7 +18,8 @@
 			, animateSpeed = settings.animateSpeed
 			, autoSpeed = settings.autoSpeed
 			, isComplete = true
-			, currentInterval = "";
+			, currentInterval = ""
+			, paginationDiv = ".pagination";
 
 		init = function() {
 			totalImg = $(mainClass).find(innerClass).length;
@@ -26,6 +28,9 @@
 
 			if (settings.auto)
 				autoSlide();
+
+			if (settings.isPagination)
+				setPagination();
 		};
 
 		bindEvents = function() {
@@ -95,8 +100,43 @@
 				$(mainClass).find(innerClass).eq(currentImg).removeClass('active');
 				currentImg = newImg;
 
+				if (settings.isPagination) {
+					$(paginationDiv).find('ul li a').removeClass('active')
+					$(paginationDiv).find('ul li a').eq(currentImg).addClass('active');
+				}
+
 				isComplete = true;
 			});
+		};
+
+		setPagination = function() {
+			if (totalImg) {
+				var pagniationHtml = $('<ul />', {});
+
+				for (var i=0; i<totalImg; i++) {
+					pagniationHtml
+					.append($('<li />', {})
+					.append($('<a />', {'href' : '#', text: (i+1), 'data-index': i, class : (i == 0) ? 'active' : ''})))
+				}
+
+				$(paginationDiv).html(pagniationHtml);
+				paginationEvent();
+			}
+		};
+
+		paginationEvent = function() {
+			if (settings.isPagination && $(paginationDiv).find('ul').length) {
+				$(paginationDiv).find('ul li a').unbind('click').bind('click', function() {
+					if ($(this).attr('data-index')) {
+						newImg = parseInt($(this).attr('data-index'));
+						
+						if (newImg > currentImg)
+							slideCarousel('next');
+						else if (newImg < currentImg)
+							slideCarousel('prev');
+					}
+				});
+			}
 		};
 
 		autoSlide = function() {

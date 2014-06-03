@@ -52,3 +52,35 @@
 .imageDiv.active {
 	display: block;
 }
+
+/** for pagination **/
+.inner .pagination {
+	border-radius: 5px;
+    bottom: 0;
+    color: #FFFFFF;
+    left: 50%;
+    position: absolute; 
+	background: #c6c6c6;
+	z-index: 2;
+}
+
+.inner .pagination ul {
+	float: left;
+    margin: 0;
+    padding: 5px;
+}
+
+.inner .pagination ul li {
+	display: inline-block; 
+	float: left;
+	padding: 5px;
+}
+
+.inner .pagination ul li a {
+	text-decoration: none;
+	color: #fff;
+}
+
+.inner .pagination ul li a.active {
+	color: #FF0000;
+}
